@@ -7,7 +7,7 @@ public class ErrorResponse {
     private String code;
     private String message;
     private Integer status;
-    private Instant timestamp = Instant.now();
+    private final Instant timestamp = Instant.now();
 
     public String getCode() {
         return code;
