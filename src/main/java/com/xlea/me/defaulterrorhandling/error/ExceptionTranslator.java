@@ -14,11 +14,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ExceptionTranslator extends ResponseEntityExceptionHandler {
 
-    Logger log = LoggerFactory.getLogger(ExceptionTranslator.class);
+    private final Logger log = LoggerFactory.getLogger(ExceptionTranslator.class);
+    private static final String EXCEPTION_LOGGER_PREFIX = "Exception: {}";
 
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleGenericException(Exception exception, NativeWebRequest request) {
-        log.error("Exception {}", (Object) exception);
+        log.debug(EXCEPTION_LOGGER_PREFIX, exception, exception);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()));
@@ -26,7 +27,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleBadActionException(BadActionException exception, NativeWebRequest request) {
-        log.error("Exception {}", (Object) exception);
+        log.debug(EXCEPTION_LOGGER_PREFIX, exception, exception);
         HttpStatus httpStatus = HttpStatus.resolve(exception.getStatus());
         if (httpStatus == null)
             httpStatus = HttpStatus.BAD_REQUEST;

@@ -41,5 +41,4 @@ public class BadActionException extends RuntimeException {
         this(exceptionError.getStatus(), exceptionError.getCode(), exceptionError.getDescription());
     }
 
-
 }
