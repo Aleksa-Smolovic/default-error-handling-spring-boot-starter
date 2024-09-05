@@ -34,6 +34,9 @@ Provided classes:
 * `BadActionException`
 * `EntityMissingException`
 
+Handling of these exceptions along with generic (`java.lang.Exception`)
+can be overridden inside your own `@ControllerAdvice`
+
 ## Notes:
 
 Java version: 21
